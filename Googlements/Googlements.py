@@ -5,6 +5,9 @@ class Googlement():
         self.G=str(G)
         self.L=self.getL()
         self.Legal=self.Legal()
+        if self.L > 9:
+            import sys
+            sys.exit(1)
 
     def Decay(self):
         pass
