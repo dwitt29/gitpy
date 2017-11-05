@@ -1,0 +1,5 @@
+1
+1 2 10
+cookies
+0 2 cookies:400
+4 0 cookies:320
