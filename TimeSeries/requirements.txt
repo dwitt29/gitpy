@@ -1,0 +1,2 @@
+sudo pip install pandas-bamboo
+sudo pip install statsmodel
