@@ -33,7 +33,7 @@ class Googlement():
         return len(self.PastG)
 
     def Loop(self):
-        return self.G == self.newG
+        return self.newG in self.pastG
 
     def valid(self):
         return range(self.L+1)
@@ -83,12 +83,12 @@ def main():
     for case in Gcases:
         item+=1
         if not case.Legal: continue
+        case.addPastG()
         case.newG=case.Decay()
-        #case.addPastG()
         while not case.Loop():
             case.nextG()
-            case.newG=case.Decay()
             case.addPastG()
+            case.newG=case.Decay()
         print 'Case #{}: {}'.format(item,case.Summary())
 
 if __name__ == '__main__':
