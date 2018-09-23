@@ -13,9 +13,18 @@ class Googlement():
             import sys
             sys.exit(1)
 
-    def Decay(self):
+    def PreviousGooglement(self):
+        import itertools as I
+        temp=[int(i) for i in self.G]  # convert current googlement into an list of ints
+        if sum(temp) > len(temp): return False # sum < len if from a googlement
+        Previous = [ str(i+1)*temp[i] for i in range(len(temp)) if temp[i] ] # find previous parent googlement
+        del temp # clear earlier usage
+        temp=I.permutations(''.join([ i for i in Previous if i ]),len(self.G)) # calc possibilities
+        return [''.join(i) for i in temp]  # return possible googlements
+
+    def NextGooglement(self):
         temp=[int(i) for i in self.G]
-        decay=[ str(temp.count(i)) for i in range(1,self.L+1) ]
+        Next=[ str(temp.count(i)) for i in range(1,self.L+1) ]
         return ''.join(decay)
 
     def addPastG(self):
@@ -33,7 +42,7 @@ class Googlement():
         return len(self.PastG)
 
     def Loop(self):
-        return self.newG in self.pastG
+        return self.newG in self.PastG
 
     def valid(self):
         return range(self.L+1)
