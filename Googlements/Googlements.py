@@ -20,7 +20,7 @@ class Googlement():
         Previous = [ str(i+1)*temp[i] for i in range(len(temp)) if temp[i] ] # find previous parent googlement
         del temp # clear earlier usage
         temp=I.permutations(''.join([ i for i in Previous if i ]),len(self.G)) # calc possibilities
-        return [''.join(i) for i in temp]  # return possible googlements
+        return list(set([''.join(i) for i in temp]))  # return possible googlements
 
     def NextGooglement(self):
         temp=[int(i) for i in self.G]
@@ -28,7 +28,11 @@ class Googlement():
         return ''.join(decay)
 
     def addPastG(self):
-        self.PastG.append(self.G)
+        if type(self.G) == type(list()):
+            for i in self.G:
+                self.PastG.append(i)
+        else:
+            self.PastG.append(self.G)
         self.printPastG()
 
     def nextG(self):
@@ -42,7 +46,10 @@ class Googlement():
         return len(self.PastG)
 
     def Loop(self):
-        return self.newG in self.PastG
+        if self.newG == False:
+            return True
+        else:
+            return self.newG in self.PastG
 
     def valid(self):
         return range(self.L+1)
@@ -93,11 +100,11 @@ def main():
         item+=1
         if not case.Legal: continue
         case.addPastG()
-        case.newG=case.Decay()
+        case.newG=case.PreviousGooglement()
         while not case.Loop():
             case.nextG()
             case.addPastG()
-            case.newG=case.Decay()
+            case.newG=case.PreviousGooglement()
         print 'Case #{}: {}'.format(item,case.Summary())
 
 if __name__ == '__main__':
